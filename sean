@@ -1,0 +1,90 @@
+# ============================================================
+#   LEARNING ACTIVITY 2 — Random Module: Password Generator
+# ============================================================
+
+import random
+
+
+# ─────────────────────────────────────────────────────────────
+# FUNCTION: get_length()
+# Asks the user for the desired password length
+# ─────────────────────────────────────────────────────────────
+def get_length():
+    length = int(input("Enter password length: "))
+    return length
+
+
+# ─────────────────────────────────────────────────────────────
+# FUNCTION: get_options()
+# Asks the user what character types to include
+# ─────────────────────────────────────────────────────────────
+def get_options():
+    include_upper = input("Include uppercase? ").strip().lower()
+    include_lower = input("Include lowercase? ").strip().lower()
+    include_nums  = input("Include numbers? ").strip().lower()
+    return include_upper, include_lower, include_nums
+
+
+# ─────────────────────────────────────────────────────────────
+# FUNCTION: build_pool()
+# Builds the character pool based on selected options
+# ─────────────────────────────────────────────────────────────
+def build_pool(include_upper, include_lower, include_nums):
+    pool = ""
+
+    if include_upper == "yes":
+        pool = pool + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    if include_lower == "yes":
+        pool = pool + "abcdefghijklmnopqrstuvwxyz"
+
+    if include_nums == "yes":
+        pool = pool + "0123456789"
+
+    return pool
+
+
+# ─────────────────────────────────────────────────────────────
+# FUNCTION: generate_password()
+# Generates the password using random.choice()
+# ─────────────────────────────────────────────────────────────
+def generate_password(length, pool):
+    if pool == "":
+        return None
+
+    password = ""
+    i = 0
+    while i < length:
+        password = password + random.choice(pool)
+        i = i + 1
+
+    return password
+
+
+# ─────────────────────────────────────────────────────────────
+# FUNCTION: main()
+# Organizes and runs the entire program
+# ─────────────────────────────────────────────────────────────
+def main():
+    length = get_length()
+    include_upper, include_lower, include_nums = get_options()
+
+    pool = build_pool(include_upper, include_lower, include_nums)
+
+    password = generate_password(length, pool)
+
+    print()
+
+    if password is None:
+        print("No character types selected. Cannot generate password.")
+    else:
+        print("Generated Password: " + password)
+        print()
+        print("Password generated with " + str(length) + " length")
+
+
+# ─────────────────────────────────────────────────────────────
+# MAIN PROTECTOR
+# ─────────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    main()
