@@ -1,0 +1,24 @@
+import random
+
+def get_pool():
+    pool = ""
+    if input("Include uppercase? ").strip().lower() == "yes":
+        pool += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if input("Include lowercase? ").strip().lower() == "yes":
+        pool += "abcdefghijklmnopqrstuvwxyz"
+    if input("Include numbers? ").strip().lower() == "yes":
+        pool += "0123456789"
+    return pool
+
+def generate_password(length, pool):
+    return "".join(random.choices(pool, k=length))
+
+def main():
+    length = int(input("Enter password length: "))
+    pool   = get_pool()
+
+    print("\nGenerated Password:", generate_password(length, pool))
+    print("\nPassword generated with", length, "length")
+
+if __name__ == "__main__":
+    main()
